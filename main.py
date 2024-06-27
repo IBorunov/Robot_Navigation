@@ -19,4 +19,6 @@ def generate_map(size, obstacle_chance=0.3):
     # проверяем, нет ли у нас препятствий в начальной и конечной точке
     _map[0][0] = 0
     _map[size-1][size-1] = 0
+    return _map
+
 
