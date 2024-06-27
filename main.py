@@ -35,7 +35,7 @@ def find_neighbouring_nodes(node, _map):
 
 
 def heuristic(node, goal):
-    """ Эвристическая функция для A* (манхэттенское расстояние) """
+    """ Эвристическая функция для A* """
     return abs(node[0] - goal[0]) + abs(node[1] - goal[1])
 
 
@@ -55,7 +55,7 @@ def a_star(_map, start, goal):
         current = heapq.heappop(open_set)[1]
 
         if current == goal:
-            return reconstruct_path(came_from, current)  # Если текущий узел - цель, восстанавливаем путь
+            return reconstruct_path(came_from, current)  # Если текущий узел — цель, восстанавливаем путь
 
         for neighbour in find_neighbouring_nodes(current, _map):
             if _map[neighbour[0]][neighbour[1]] == 1:
@@ -80,3 +80,21 @@ def reconstruct_path(came_from, current):
         path.append(current)
     path.reverse()
     return path
+
+
+def minimize_turns(path):
+    """ Оптимизация пути для уменьшения количества поворотов """
+    if not path:
+        return []
+
+    optimized_path = [path[0]]
+    direction = None
+
+    for i in range(1, len(path)):
+        new_direction = (path[i][0] - optimized_path[-1][0], path[i][1] - optimized_path[-1][1])
+        if new_direction != direction:
+            optimized_path.append(path[i - 1])
+        direction = new_direction
+
+    optimized_path.append(path[-1])
+    return optimized_path
