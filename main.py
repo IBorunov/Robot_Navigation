@@ -98,3 +98,26 @@ def minimize_turns(path):
 
     optimized_path.append(path[-1])
     return optimized_path
+
+
+def visualize(_map, path, optimized_path):
+    """ Визуализация карты пространства и путей с помощью Matplotlib """
+    size = len(_map)
+    image = np.zeros((size, size, 3), dtype=np.uint8)
+
+    for i in range(size):
+        for j in range(size):
+            if _map[i][j] == 1:
+                image[i, j] = [0, 0, 0]  # Черные препятствия
+            else:
+                image[i, j] = [255, 255, 255]  # Белые свободные клетки
+
+    for (x, y) in path:
+        image[x, y] = [0, 0, 255]  # Синий кратчайший путь
+
+    for (x, y) in optimized_path:
+        image[x, y] = [0, 255, 0]  # Зеленый оптимизированный путь
+
+    plt.imshow(image)
+    plt.show()
+
