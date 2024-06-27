@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def generate_map(size, obstacle_chance=0.3):
+def generate_map(size, obstacle_chance=0.2):
     """Функция генерации карты и препятствий на ней"""
     _map = []
     for i in range(size):
@@ -29,7 +29,7 @@ def find_neighbouring_nodes(node, _map):
     for direction in directions:
         neighbour = (node[0] + direction[0], node[1] + direction[1])
         # проверяем, не выходим ли мы за границы карты
-        if 0 < neighbour[0] < len(_map) and 0 < neighbour[1] < len(_map):
+        if 0 <= neighbour[0] < len(_map) and 0 <= neighbour[1] < len(_map):
             neighbours.append(neighbour)
     return neighbours
 
@@ -125,7 +125,7 @@ def visualize(_map, path, optimized_path):
 # Основная логика
 
 def main():
-    size = 10  # Размер карты
+    size = 30  # Размер карты
     _map = generate_map(size)
     start = (0, 0)
     goal = (size - 1, size - 1)
