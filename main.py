@@ -70,3 +70,13 @@ def a_star(_map, start, goal):
                 heapq.heappush(open_set, (f_score[neighbour], neighbour))  # Добавляем соседний узел в open_set
 
     return []  # Если все узлы обработаны и цель не достигнута, возвращаем пустой список
+
+
+def reconstruct_path(came_from, current):
+    """ Восстановление пути по came_from данным """
+    path = [current]
+    while current in came_from:
+        current = came_from[current]
+        path.append(current)
+    path.reverse()
+    return path
