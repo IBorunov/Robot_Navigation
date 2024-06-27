@@ -121,3 +121,23 @@ def visualize(_map, path, optimized_path):
     plt.imshow(image)
     plt.show()
 
+
+# Основная логика
+
+def main():
+    size = 10  # Размер карты
+    _map = generate_map(size)
+    start = (0, 0)
+    goal = (size - 1, size - 1)
+
+    path = a_star(_map, start, goal)
+    if not path:
+        print("Путь не найден!")
+        return
+
+    optimized_path = minimize_turns(path)
+    visualize(_map, path, optimized_path)
+
+
+if __name__ == "__main__":
+    main()
